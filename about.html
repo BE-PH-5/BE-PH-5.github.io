@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About — Ben Hoang</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+/* ── Reset & base ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:        #0F1117;
+  --surface:   #1A1D27;
+  --surface2:  #22263A;
+  --cyan:      #00C2FF;
+  --orange:    #FF6B35;
+  --text:      #E8EDF2;
+  --muted:     #8B95A3;
+  --border:    rgba(255,255,255,0.07);
+  --font-head: 'Space Grotesk', sans-serif;
+  --font-body: 'Inter', sans-serif;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* ── Nav ── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 3rem;
+  height: 64px;
+  background: rgba(15, 17, 23, 0.9);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+}
+
+.nav-logo {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--text);
+  text-decoration: none;
+  letter-spacing: -0.02em;
+}
+
+.nav-logo span { color: var(--cyan); }
+
+.nav-links {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+}
+
+.nav-links a {
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 400;
+  color: var(--muted);
+  text-decoration: none;
+  letter-spacing: 0.02em;
+  transition: color 0.2s;
+  position: relative;
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px; left: 0;
+  width: 0; height: 1px;
+  background: var(--cyan);
+  transition: width 0.25s ease;
+}
+
+.nav-links a:hover { color: var(--text); }
+.nav-links a:hover::after { width: 100%; }
+.nav-links a.active { color: var(--text); }
+.nav-links a.active::after { width: 100%; }
+
+/* ── Page wrapper ── */
+.page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 100px 3rem 80px;
+}
+
+/* ── Section headings ── */
+.section-label {
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--cyan);
+  margin-bottom: 0.75rem;
+}
+
+.section-title {
+  font-family: var(--font-head);
+  font-size: clamp(1.8rem, 4vw, 2.75rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  color: var(--text);
+  margin-bottom: 1rem;
+}
+
+.section-desc {
+  font-size: 0.95rem;
+  color: var(--muted);
+  max-width: 600px;
+  line-height: 1.75;
+  margin-bottom: 3rem;
+}
+
+/* ── Buttons ── */
+.btn-primary {
+  display: inline-block;
+  padding: 0.75rem 1.75rem;
+  background: var(--cyan);
+  color: #0F1117;
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 6px;
+  letter-spacing: 0.01em;
+  transition: opacity 0.2s, transform 0.2s;
+}
+
+.btn-primary:hover { opacity: 0.85; transform: translateY(-1px); }
+
+.btn-ghost {
+  display: inline-block;
+  padding: 0.75rem 1.75rem;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 400;
+  text-decoration: none;
+  border-radius: 6px;
+  letter-spacing: 0.01em;
+  transition: border-color 0.2s, color 0.2s, transform 0.2s;
+}
+
+.btn-ghost:hover {
+  border-color: var(--cyan);
+  color: var(--text);
+  transform: translateY(-1px);
+}
+
+/* ── Project cards ── */
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.5rem;
+}
+
+.project-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  transition: border-color 0.2s, transform 0.2s;
+  cursor: pointer;
+}
+
+.project-card:hover {
+  border-color: rgba(0,194,255,0.35);
+  transform: translateY(-3px);
+}
+
+.project-tag-row {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.tag {
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.3rem 0.6rem;
+  border-radius: 4px;
+  background: rgba(0,194,255,0.1);
+  color: var(--cyan);
+  border: 1px solid rgba(0,194,255,0.2);
+}
+
+.tag.orange {
+  background: rgba(255,107,53,0.1);
+  color: var(--orange);
+  border-color: rgba(255,107,53,0.2);
+}
+
+.project-title {
+  font-family: var(--font-head);
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--text);
+  letter-spacing: -0.01em;
+}
+
+.project-summary {
+  font-size: 0.875rem;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.project-expand-btn {
+  margin-top: auto;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--cyan);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  text-align: left;
+  letter-spacing: 0.02em;
+  transition: opacity 0.2s;
+}
+
+.project-expand-btn:hover { opacity: 0.75; }
+
+/* ── Modal ── */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 11, 16, 0.88);
+  z-index: 200;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  backdrop-filter: blur(6px);
+}
+
+.modal-overlay.open { display: flex; }
+
+.modal {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  max-width: 680px;
+  width: 100%;
+  max-height: 85vh;
+  overflow-y: auto;
+  padding: 2.5rem;
+  position: relative;
+}
+
+.modal-close {
+  position: absolute;
+  top: 1.25rem; right: 1.25rem;
+  background: none;
+  border: none;
+  color: var(--muted);
+  font-size: 1.4rem;
+  cursor: pointer;
+  line-height: 1;
+  transition: color 0.2s;
+}
+
+.modal-close:hover { color: var(--text); }
+
+.modal-tag-row { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1rem; }
+
+.modal-title {
+  font-family: var(--font-head);
+  font-size: 1.4rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  margin-bottom: 1.5rem;
+}
+
+.modal-section-head {
+  font-family: var(--font-head);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--orange);
+  margin-bottom: 0.5rem;
+  margin-top: 1.5rem;
+}
+
+.modal-section-head:first-of-type { margin-top: 0; }
+
+.modal-body {
+  font-size: 0.9rem;
+  color: var(--muted);
+  line-height: 1.8;
+}
+
+/* ── Footer ── */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 1.5rem 3rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+footer p { font-size: 0.78rem; color: var(--muted); }
+footer span { color: var(--cyan); }
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  nav { padding: 0 1.25rem; }
+  .nav-links { gap: 1rem; }
+  .nav-links a { font-size: 0.8rem; }
+  .page { padding: 90px 1.25rem 60px; }
+  footer { flex-direction: column; gap: 0.5rem; text-align: center; padding: 1.5rem; }
+}
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+    .about-bio p { font-size: 0.95rem; color: var(--muted); line-height: 1.8; margin-bottom: 1.25rem; }
+    .about-bio p strong { color: var(--text); font-weight: 500; }
+    .skills-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem; }
+    .skill-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 1.25rem; transition: border-color 0.2s; }
+    .skill-card:hover { border-color: rgba(0,194,255,0.3); }
+    .skill-card-title { font-family: var(--font-head); font-size: 0.8rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--cyan); margin-bottom: 0.6rem; }
+    .skill-card-list { font-size: 0.85rem; color: var(--muted); line-height: 1.7; }
+    .edu-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 1.5rem; }
+    .edu-school { font-family: var(--font-head); font-size: 0.95rem; font-weight: 600; color: var(--text); }
+    .edu-degree { font-size: 0.82rem; color: var(--cyan); margin: 0.2rem 0 0.5rem; }
+    .edu-courses { font-size: 0.85rem; color: var(--muted); line-height: 1.7; }
+    .experience-list { margin-top: 3rem; }
+    .exp-item { display: grid; grid-template-columns: 130px 1fr; gap: 1.5rem; padding: 1.5rem 0; border-top: 1px solid var(--border); }
+    .exp-item:last-child { border-bottom: 1px solid var(--border); }
+    .exp-date { font-size: 0.78rem; color: var(--muted); padding-top: 0.15rem; }
+    .exp-role { font-family: var(--font-head); font-size: 0.95rem; font-weight: 600; color: var(--text); margin-bottom: 0.2rem; }
+    .exp-company { font-size: 0.82rem; color: var(--cyan); margin-bottom: 0.6rem; }
+    .exp-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.7; }
+    @media (max-width: 768px) {
+      .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .exp-item { grid-template-columns: 1fr; gap: 0.25rem; }
+    }
+    @media (max-width: 480px) { .skills-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <nav>
+    <a class="nav-logo" href="index.html">BH<span>.</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html" class="active">About</a></li>
+      <li><a href="ieee.html">IEEE</a></li>
+      <li><a href="zotbotics.html">ZOTBotics</a></li>
+      <li><a href="ftc.html">FTC</a></li>
+      <li><a href="personal.html">Personal Projects</a></li>
+    </ul>
+  </nav>
+
+  <div class="page">
+    <p class="section-label">About Me</p>
+    <h1 class="section-title">Benjamin Hoang</h1>
+    <p class="section-desc">Computer Engineering Junior at UC Irvine, graduating June 2028. Focused on embedded systems, hardware design, and PCB work.</p>
+
+    <div class="about-grid">
+      <div class="about-bio">
+        <p>I'm a Computer Engineering Junior at UC Irvine (B.S., expected June 2028). I focus on embedded systems, hardware design, and PCB work — building circuits, writing firmware, and testing until things work.</p>
+        <p>My first engineering experience was at <strong>Raytheon Technologies</strong> in 2022, where I designed a water distribution monitor in Fusion 360 and wrote embedded C code for automated flow shutoff.</p>
+        <p>I have just finished building a remote-controlled rover with a custom PCB and C++ firmware through <strong>UCI IEEE</strong>, alongside taking EECS circuits coursework at UCI.</p>
+        <div class="experience-list">
+          <div class="exp-item">
+            <div class="exp-date">Jun 2022 – Jul 2022</div>
+            <div>
+              <div class="exp-role">Project Management & Engineering Intern</div>
+              <div class="exp-company">Raytheon Technologies</div>
+              <div class="exp-desc">Designed a water distribution monitor in Fusion 360 and programmed embedded C logic for automated flow shutoff. Presented prototype to a technical panel.</div>
+            </div>
+          </div>
+          <div class="exp-item">
+            <div class="exp-date">Jan 2024 – Jun 2024</div>
+            <div>
+              <div class="exp-role">Research Intern</div>
+              <div class="exp-company">UCI Environmental Injustice Research</div>
+              <div class="exp-desc">Deployed air quality monitors across Azusa to collect CO2 and pollutant data. Analyzed results against city topography and presented findings to faculty and stakeholders.</div>
+            </div>
+          </div>
+          <div class="exp-item">
+            <div class="exp-date">Nov 2023 – Jun 2024</div>
+            <div>
+              <div class="exp-role">Co-Founder &amp; Vice President</div>
+              <div class="exp-company">FIRST Tech Challenge Club</div>
+              <div class="exp-desc">Co-founded the club with a friend, coordinated meetings, built lesson plans, and taught robotics and 3D modeling. Contributed mechanical assembly and sensor placement on the competition robot.</div>
+            </div>
+          </div>
+          <div class="exp-item">
+            <div class="exp-date">Sep 2025 – Present</div>
+            <div>
+              <div class="exp-role">Open Project Space Member</div>
+              <div class="exp-company">UCI IEEE</div>
+              <div class="exp-desc">Completed 8 embedded systems projects using ESP32 and Arduino IDE. Currently designing a custom PCB rover with board-reviewed schematics and C++ firmware.</div>
+            </div>
+          </div>
+          <div class="exp-item">
+            <div class="exp-date">Jan 2026 – Jun 2026</div>
+            <div>
+              <div class="exp-role">Electrical/Assembly Subteam</div>
+              <div class="exp-company">ZOTBotics Introductory Makerspace</div>
+              <div class="exp-desc">Wired a 6-DOF Arctos robotic arm with Arduino MEGA integration. Designed a custom claw attachment and competed in three functional tasks.</div>
+            </div>
+          </div>
+          <div class="exp-item">
+            <div class="exp-date">Jan 2026 – Present</div>
+            <div>
+              <div class="exp-role">Assistant</div>
+              <div class="exp-company">UCI Human Resources</div>
+              <div class="exp-desc">Processed I-9 documentation, reviewed background check files, and streamlined misconduct form workflows during high-volume intake periods.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <p class="section-label" style="margin-bottom:1.25rem;">Skills & Tools</p>
+        <div class="skills-grid">
+          <div class="skill-card"><div class="skill-card-title">Languages</div><div class="skill-card-list">C · C++ · Python · HTML / CSS</div></div>
+          <div class="skill-card"><div class="skill-card-title">Hardware</div><div class="skill-card-list">ESP32 · Arduino IDE · Arduino MEGA · Breadboard Prototyping</div></div>
+          <div class="skill-card"><div class="skill-card-title">Design Tools</div><div class="skill-card-list">Fusion 360 · Onshape · PCB Design · Circuit Analysis</div></div>
+          <div class="skill-card"><div class="skill-card-title">Other</div><div class="skill-card-list">Technical Documentation · Microsoft Excel · Oscilloscope · Multimeter</div></div>
+        </div>
+        <div class="edu-card">
+          <div class="skill-card-title" style="margin-bottom:0.75rem;">Education</div>
+          <div class="edu-school">University of California, Irvine</div>
+          <div class="edu-degree">B.S. Computer Engineering · Expected June 2028</div>
+          <div class="edu-courses">Relevant coursework: Electric Circuits (EECS 70A/70LA), Digital Logic (EECS 31/31L), Intro to Programming (I&C SCI 31/32), Discrete Math (COMPSCI 161)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>© 2026 Benjamin Hoang — Built with <span>HTML, CSS & JS</span></p>
+    <p>UCI Computer Engineering · Expected 2028</p>
+  </footer>
+</body>
+</html>
