@@ -1,1 +1,3 @@
-Hi! My name is Ben and this is my new engineering portfolio! It's just a way for me to show random stuff I did and I thought was super coool!
+Personal engineering portfolio — be-ph-5.github.io
+
+Built with plain HTML, CSS, and JavaScript. Covers embedded systems and hardware projects from UCI IEEE OPS, ZOTBotics, FTC robotics, and personal work including a Raytheon internship project and research with UCI’s EcoGov Lab.
