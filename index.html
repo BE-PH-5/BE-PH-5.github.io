@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ben Hoang · Computer Engineering, UC Irvine</title>
+  <meta name="description" content="Benjamin Hoang, Computer Engineering at UC Irvine (June 2028). Embedded systems, PCB design, and hardware bring-up. Seeking Summer 2027 hardware, embedded, and electrical engineering internships." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0F1117;
+      --surface: #1A1D27;
+      --surface2: #22263A;
+      --cyan: #00C2FF;
+      --orange: #FF6B35;
+      --text: #E8EDF2;
+      --muted: #9AA4B2;
+      --border: rgba(255,255,255,0.08);
+      --head: 'Space Grotesk', system-ui, sans-serif;
+      --body: 'Inter', system-ui, sans-serif;
+      --nav-h: 56px;
+    }
+
+    html { scroll-behavior: smooth; scroll-padding-top: calc(var(--nav-h) + 16px); }
+    body { background: var(--bg); color: var(--text); font-family: var(--body); font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+    a { color: var(--cyan); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    img { display: block; max-width: 100%; }
+
+    /* Nav */
+    nav {
+      position: sticky; top: 0; z-index: 50;
+      height: var(--nav-h);
+      background: rgba(15,17,23,0.92);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner { max-width: 1000px; margin: 0 auto; height: 100%; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+    .nav-name { font-family: var(--head); font-weight: 700; color: var(--text); white-space: nowrap; }
+    .nav-name span { color: var(--cyan); }
+    .nav-links { display: flex; gap: 22px; list-style: none; overflow-x: auto; scrollbar-width: none; }
+    .nav-links::-webkit-scrollbar { display: none; }
+    .nav-links a { color: var(--muted); font-size: 0.9rem; white-space: nowrap; }
+    .nav-links a:hover, .nav-links a.active { color: var(--text); text-decoration: none; }
+
+    main { max-width: 1000px; margin: 0 auto; padding: 0 24px; }
+    section { padding: 56px 0 8px; }
+    h2 {
+      font-family: var(--head); font-size: 1.5rem; font-weight: 700; letter-spacing: -0.01em;
+      display: flex; align-items: baseline; gap: 12px; margin-bottom: 24px;
+    }
+    h2::before { content: ''; width: 18px; height: 3px; background: var(--cyan); border-radius: 2px; transform: translateY(-6px); }
+
+    /* Intro */
+    .intro { padding: 56px 0 8px; }
+    .intro h1 { font-family: var(--head); font-size: clamp(2.2rem, 6vw, 3.2rem); font-weight: 700; letter-spacing: -0.03em; line-height: 1.05; }
+    .intro .role { color: var(--cyan); font-weight: 500; margin: 10px 0 14px; }
+    .intro p.summary { color: var(--muted); max-width: 640px; }
+    .intro p.summary strong { color: var(--text); font-weight: 500; }
+    .now { display: flex; flex-wrap: wrap; gap: 8px; margin: 18px 0 22px; }
+    .now span { font-size: 0.82rem; color: var(--text); background: var(--surface); border: 1px solid var(--border); border-radius: 999px; padding: 4px 12px; }
+    .now span b { color: var(--orange); font-weight: 600; }
+    .links { display: flex; flex-wrap: wrap; gap: 10px; }
+    .btn { display: inline-flex; align-items: center; gap: 8px; padding: 9px 16px; border-radius: 6px; font-size: 0.9rem; font-weight: 600; border: 1px solid var(--border); color: var(--text); background: var(--surface); }
+    .btn:hover { border-color: var(--cyan); text-decoration: none; }
+    .btn.primary { background: var(--cyan); color: #0F1117; border-color: var(--cyan); }
+    .btn.primary:hover { opacity: 0.9; }
+
+    /* Experience */
+    .exp { list-style: none; border-top: 1px solid var(--border); }
+    .exp li { display: grid; grid-template-columns: 1fr auto; column-gap: 24px; row-gap: 2px; padding: 16px 0; border-bottom: 1px solid var(--border); }
+    .exp .title { font-family: var(--head); font-weight: 600; font-size: 1.02rem; }
+    .exp .org { color: var(--cyan); font-weight: 500; }
+    .exp .org small { color: var(--muted); font-weight: 400; font-size: 0.85rem; }
+    .exp .date { color: var(--muted); font-size: 0.85rem; white-space: nowrap; text-align: right; grid-row: 1; grid-column: 2; }
+    .exp .what { grid-column: 1 / -1; color: var(--muted); font-size: 0.93rem; max-width: 760px; margin-top: 4px; }
+    .exp .what a { white-space: nowrap; }
+    .current { display: inline-block; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--orange); border: 1px solid rgba(255,107,53,0.35); border-radius: 4px; padding: 1px 6px; margin-left: 8px; vertical-align: 2px; }
+
+    /* Projects */
+    .projects { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+    .card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; display: flex; flex-direction: column; }
+    .card .img { aspect-ratio: 16 / 9; background: #0b0d12; overflow: hidden; }
+    .card .img img { width: 100%; height: 100%; object-fit: cover; }
+    .card .img img.contain { object-fit: contain; }
+    .card .img img.top { object-position: center top; }
+    .card .body { padding: 18px 18px 20px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+    .card h3 { font-family: var(--head); font-size: 1.08rem; font-weight: 600; line-height: 1.3; }
+    .card .meta { font-size: 0.8rem; color: var(--orange); font-weight: 500; }
+    .card p { color: var(--muted); font-size: 0.92rem; }
+    .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: auto; padding-top: 6px; }
+    .tags span { font-size: 0.72rem; font-weight: 500; color: var(--cyan); background: rgba(0,194,255,0.08); border: 1px solid rgba(0,194,255,0.2); border-radius: 4px; padding: 2px 7px; }
+    .demos { display: flex; gap: 8px; flex-wrap: wrap; }
+    .demo-btn { font: inherit; font-size: 0.82rem; font-weight: 600; color: var(--text); background: var(--surface2); border: 1px solid var(--border); border-radius: 6px; padding: 6px 12px; cursor: pointer; }
+    .demo-btn:hover { border-color: var(--cyan); }
+
+    /* Leadership, skills, education */
+    .skills { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px 32px; }
+    .skills div { font-size: 0.93rem; color: var(--muted); }
+    .skills b { display: block; color: var(--text); font-family: var(--head); font-weight: 600; font-size: 0.85rem; letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 2px; }
+    .edu { color: var(--muted); font-size: 0.93rem; }
+    .edu .school { font-family: var(--head); color: var(--text); font-weight: 600; font-size: 1.02rem; }
+    .edu p + p { margin-top: 8px; }
+    .edu b { color: var(--text); font-weight: 500; }
+
+    .contact { padding-bottom: 48px; }
+    .contact p { color: var(--muted); margin-bottom: 16px; }
+    footer { border-top: 1px solid var(--border); color: var(--muted); font-size: 0.8rem; text-align: center; padding: 20px 24px 28px; }
+
+    /* Video dialog */
+    dialog { margin: auto; border: 1px solid var(--border); border-radius: 10px; background: var(--surface2); color: var(--text); padding: 12px; max-width: min(92vw, 420px); }
+    dialog::backdrop { background: rgba(5,6,10,0.8); }
+    dialog video { display: block; width: 100%; max-height: 78vh; border-radius: 6px; background: #000; }
+    dialog .bar { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 8px; font-size: 0.88rem; }
+    dialog button { font: inherit; color: var(--muted); background: none; border: 0; cursor: pointer; font-size: 1.1rem; padding: 2px 6px; }
+
+    @media (max-width: 720px) {
+      .nav-inner { padding: 0 16px; }
+      .nav-name { display: none; }
+      .nav-links { gap: 0; width: 100%; justify-content: space-between; }
+      .nav-links a { font-size: 0.84rem; }
+      main { padding: 0 16px; }
+      section, .intro { padding-top: 40px; }
+      .projects, .skills { grid-template-columns: 1fr; }
+      .exp li { grid-template-columns: 1fr; }
+      .exp .date { grid-row: auto; grid-column: 1; text-align: left; }
+    }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="nav-inner">
+      <a class="nav-name" href="#top">Ben Hoang<span>.</span></a>
+      <ul class="nav-links">
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#education">Education</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main id="top">
+    <!-- Intro -->
+    <header class="intro">
+      <h1>Benjamin Hoang</h1>
+      <p class="role">Computer Engineering, UC Irvine · B.S. expected June 2028</p>
+      <p class="summary">I work on embedded hardware: designing PCBs, writing ESP32 firmware, and bringing boards up on the bench. <strong>Looking for Summer 2027 internships in hardware, embedded systems, and electrical engineering.</strong></p>
+      <div class="now">
+        <span><b>Now</b> · Embedded Engineer, ZotBins</span>
+        <span><b>Now</b> · Research Intern, Irvine Hacker Fab</span>
+      </div>
+      <div class="links">
+        <a class="btn primary" href="mailto:bphoang@uci.edu">Email me</a>
+        <a class="btn" href="https://www.linkedin.com/in/benjamin-hoang-325118244/" target="_blank" rel="noopener">LinkedIn</a>
+        <a class="btn" href="https://github.com/BE-PH-5" target="_blank" rel="noopener">GitHub</a>
+        <!-- Resume: add resume.pdf to the repo root, then uncomment:
+        <a class="btn" href="resume.pdf" target="_blank" rel="noopener">Resume (PDF)</a> -->
+      </div>
+    </header>
+
+    <!-- Experience -->
+    <section id="experience">
+      <h2>Experience</h2>
+      <ul class="exp">
+        <li>
+          <div class="title">Embedded Engineer<span class="current">Current</span></div>
+          <div class="date">Oct 2026 – Present</div>
+          <div class="org">ZotBins <small>· UCI smart trash bin project team</small></div>
+          <div class="what">Brought up an OV2640 camera on the team's ESP32-WROVER-E board in ESP-IDF, configuring it over SCCB (I2C) and reading 8-bit DVP frames into PSRAM. Got the camera running and handed my code to the electrical and embedded leads.</div>
+        </li>
+        <li>
+          <div class="title">Research Intern<span class="current">Current</span></div>
+          <div class="date">Oct 2026 – Present</div>
+          <div class="org">Irvine Hacker Fab <small>· UCI student semiconductor fabrication team</small></div>
+          <div class="what">One-quarter research internship on semiconductor fabrication. Writing a research paper on four-point probe sheet resistance measurement, then joining the metrology team.</div>
+        </li>
+        <li>
+          <div class="title">Assistant</div>
+          <div class="date">Jan 2026 – Present</div>
+          <div class="org">UCI Human Resources</div>
+          <div class="what">Verify I-9 employment eligibility for 20+ new hires a week, including foreign-issued documents, and run about 30 Livescan fingerprinting appointments a week.</div>
+        </li>
+        <li>
+          <div class="title">Member, Open Project Space</div>
+          <div class="date">Sep 2025 – Sep 2026</div>
+          <div class="org">UCI IEEE</div>
+          <div class="what">Completed 8 ESP32 projects covering UART, I2C, ADC, interrupts, and hardware timers, then built the capstone rover and its custom remote PCB solo. <a href="#proj-rover">See project ↓</a></div>
+        </li>
+        <li>
+          <div class="title">Electrical/Assembly Subteam</div>
+          <div class="date">Jan 2026 – Jun 2026</div>
+          <div class="org">ZOTBotics Introductory Makerspace</div>
+          <div class="what">One of four on a team that built a 6-DOF Arctos robotic arm. Wired the stepper motors, Hall-effect limit sensors, and Arduino MEGA. <a href="#proj-arm">See project ↓</a></div>
+        </li>
+        <li>
+          <div class="title">Research Intern</div>
+          <div class="date">Jan 2024 – Jun 2024</div>
+          <div class="org">UCI Environmental Injustice Research</div>
+          <div class="what">Deployed air quality monitors at about 4 sites in Azusa, CA, and compared CO2 and particulate readings against city topography to find higher-pollution zones.</div>
+        </li>
+        <li>
+          <div class="title">Project Management &amp; Engineering Intern</div>
+          <div class="date">Jun 2022 – Jul 2022</div>
+          <div class="org">Raytheon Technologies</div>
+          <div class="what">Designed a motorized water shutoff valve in Fusion 360 and wrote simulated C control logic that closed it above 20 L/min. Presented the design to a technical panel.</div>
+        </li>
+      </ul>
+    </section>
+
+    <!-- Projects -->
+    <section id="projects">
+      <h2>Projects</h2>
+      <div class="projects">
+        <article class="card" id="proj-rover">
+          <div class="img"><img src="images/rover.jpg" alt="The two-mode ESP32 rover driving on a tile floor" loading="lazy" /></div>
+          <div class="body">
+            <div class="meta">UCI IEEE capstone · built solo</div>
+            <h3>Two-mode ESP32 rover with a custom remote PCB</h3>
+            <p>Designed the joystick remote's 2-layer PCB in KiCad 7.0, then hand-soldered and brought it up. The remote sends joystick data to the rover over ESP-NOW every 50 ms, and a second mode avoids obstacles with an HC-SR04.</p>
+            <div class="demos">
+              <button class="demo-btn" data-video="images/rover-manual.mp4" data-poster="images/rover-manual-poster.jpg" data-title="Rover: manual control">▶ Manual demo</button>
+              <button class="demo-btn" data-video="images/rover-auto.mp4" data-poster="images/rover-auto-poster.jpg" data-title="Rover: obstacle avoidance">▶ Autonomous demo</button>
+            </div>
+            <div class="tags"><span>ESP32</span><span>KiCad</span><span>ESP-NOW</span><span>L293D</span><span>C++</span></div>
+          </div>
+        </article>
+
+        <article class="card" id="proj-turret">
+          <div class="img"><img class="contain" src="images/turret-3d.jpg" alt="3D view of the sonar turret PCB in Altium Designer" loading="lazy" /></div>
+          <div class="body">
+            <div class="meta">Personal · PCB design done, breadboard build next</div>
+            <h3>ESP32-C3 sonar turret PCB</h3>
+            <p>Designed a 70 × 33 mm 2-layer board in Altium Designer. An HC-SR04 on a pan servo finds a target and a second servo fires a rubber band. An arm switch cuts power to the firing servo until it's on.</p>
+            <div class="tags"><span>Altium Designer</span><span>ESP32-C3</span><span>Schematic + layout</span><span>DRC</span></div>
+          </div>
+        </article>
+
+        <article class="card" id="proj-arm">
+          <div class="img"><img class="top" src="images/robotic-arm.jpg" alt="The 6-DOF Arctos robotic arm with its two-prong claw" loading="lazy" /></div>
+          <div class="body">
+            <div class="meta">ZOTBotics · team of 4</div>
+            <h3>6-DOF robotic arm wiring and tuning</h3>
+            <p>Wired the steppers, Hall-effect limit sensors, and Arduino MEGA running GRBL, tuned the axes, and wrote the claw servo code. The arm completed all three competition tasks: weight lifting, cup stacking, and pouring water.</p>
+            <div class="tags"><span>Arduino MEGA</span><span>GRBL</span><span>Stepper motors</span><span>Wiring</span></div>
+          </div>
+        </article>
+
+        <article class="card" id="proj-jobs">
+          <div class="img"><img class="top" src="images/job-pipeline.jpg" alt="Google Sheet of scored internship listings produced by the pipeline" loading="lazy" /></div>
+          <div class="body">
+            <div class="meta">Personal · software</div>
+            <h3>AI job application pipeline</h3>
+            <p>Python tool that scrapes internship listings from Indeed and LinkedIn, scores each one against my skills with the Claude API, and logs the results to Google Sheets.</p>
+            <div class="tags"><span>Python</span><span>Claude API</span><span>Google Sheets API</span></div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Leadership -->
+    <section id="leadership">
+      <h2>Leadership</h2>
+      <ul class="exp">
+        <li>
+          <div class="title">Co-Founder &amp; Vice President</div>
+          <div class="date">Nov 2023 – Jun 2024</div>
+          <div class="org">FIRST Tech Challenge robotics club</div>
+          <div class="what">Co-founded the club, taught mechanical assembly to about 25 students, and ran club operations after the president stepped down.</div>
+        </li>
+      </ul>
+    </section>
+
+    <!-- Skills -->
+    <section id="skills">
+      <h2>Skills</h2>
+      <div class="skills">
+        <div><b>Hardware &amp; PCB</b>KiCad 7.0, Altium Designer, soldering (SMD and through-hole), Fusion 360, Onshape, 3D printing</div>
+        <div><b>Embedded</b>ESP32 (ESP-IDF, Arduino), Arduino MEGA, ESP-NOW, UART, I2C/SCCB, ADC, hardware timers</div>
+        <div><b>Lab equipment</b>Oscilloscope, digital multimeter, function generator, bench power supply</div>
+        <div><b>Languages &amp; tools</b>C, C++, Python, Verilog, VHDL, MATLAB, Git</div>
+        <div><b>Certification</b>FAA TRUST (recreational drone)</div>
+      </div>
+    </section>
+
+    <!-- Education -->
+    <section id="education">
+      <h2>Education</h2>
+      <div class="edu">
+        <p class="school">University of California, Irvine</p>
+        <p>B.S. Computer Engineering · Expected June 2028</p>
+        <p><b>Relevant coursework:</b> Electronics I with lab (EECS 170A, 170LA), circuit analysis (70A, 70B, 70LA lab), digital logic (31, 31L), discrete-time signals and systems (50), electrical engineering analysis (145), drones (195), C programming (20, 22), intro programming (12), probability (55)</p>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="contact">
+      <h2>Contact</h2>
+      <p>Email is the fastest way to reach me.</p>
+      <div class="links">
+        <a class="btn primary" href="mailto:bphoang@uci.edu">bphoang@uci.edu</a>
+        <a class="btn" href="https://www.linkedin.com/in/benjamin-hoang-325118244/" target="_blank" rel="noopener">LinkedIn</a>
+        <a class="btn" href="https://github.com/BE-PH-5" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>© 2026 Benjamin Hoang</footer>
+
+  <dialog id="video-dialog" aria-label="Project demo video">
+    <div class="bar"><span id="video-title"></span><button type="button" id="video-close" aria-label="Close video">✕</button></div>
+    <video id="video-player" controls playsinline preload="none"></video>
+  </dialog>
+
+  <script>
+    (function () {
+      var dialog = document.getElementById('video-dialog');
+      var player = document.getElementById('video-player');
+      var title = document.getElementById('video-title');
+      function close() { player.pause(); player.removeAttribute('src'); player.load(); dialog.close(); }
+      document.querySelectorAll('.demo-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          player.src = btn.dataset.video;
+          player.poster = btn.dataset.poster || '';
+          title.textContent = btn.dataset.title || '';
+          dialog.showModal();
+          player.play().catch(function () {});
+        });
+      });
+      document.getElementById('video-close').addEventListener('click', close);
+      dialog.addEventListener('click', function (e) { if (e.target === dialog) close(); });
+      dialog.addEventListener('cancel', function (e) { e.preventDefault(); close(); });
+
+      // Highlight the nav link for the section in view
+      var links = document.querySelectorAll('.nav-links a');
+      var map = {};
+      links.forEach(function (a) { map[a.getAttribute('href').slice(1)] = a; });
+      if ('IntersectionObserver' in window) {
+        var obs = new IntersectionObserver(function (entries) {
+          entries.forEach(function (en) {
+            if (en.isIntersecting && map[en.target.id]) {
+              links.forEach(function (a) { a.classList.remove('active'); });
+              map[en.target.id].classList.add('active');
+            }
+          });
+        }, { rootMargin: '-40% 0px -55% 0px' });
+        Object.keys(map).forEach(function (id) { var s = document.getElementById(id); if (s) obs.observe(s); });
+      }
+    })();
+  </script>
+</body>
+</html>
